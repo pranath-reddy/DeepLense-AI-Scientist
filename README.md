@@ -8,14 +8,12 @@ Agentic AI for autonomous scientific workflows in gravitational lensing research
 <div align="center">
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white" alt="Python"></a>
   <a href="https://ai.pydantic.dev/"><img src="https://img.shields.io/badge/Pydantic-AI-E92063?logo=pydantic&logoColor=white" alt="Pydantic AI"></a>
-  <a href="https://github.com/ML4SCI/DeepLense"><img src="https://img.shields.io/badge/DeepLense-ML4SCI-blueviolet?logo=telescope&logoColor=white" alt="DeepLense"></a>
+  <a href="https://deeplense.org/"><img src="https://img.shields.io/badge/DeepLense-ML4SCI-blueviolet?logo=telescope&logoColor=white" alt="DeepLense"></a>
 </div>
 
 <p align="center">
-  <a href="./docs/DOCUMENTATION.md"><strong>Technical Documentation</strong></a>
-</p>
-
-<p align="center">
+  <a href="https://deeplense.org/"><strong>DeepLense Website</strong></a> ·
+  <a href="./docs/DOCUMENTATION.md"><strong>Technical Documentation</strong></a> ·
   <a href="./docs/AGENT_TRACKER.md"><strong>Agent Tracker</strong></a>
 </p>
 
@@ -79,8 +77,22 @@ source .venv/bin/activate  # macOS/Linux
 ## 4. Install the package and dependencies
 
 ```bash
-uv pip install -e .
+uv sync            # installs everything, including torch
 ```
+
+`uv pip install -e .` works too. `torch` is a **main** dependency, not an extra:
+the AI-Scientist pipeline's training/inference backends need it, so a plain
+`uv sync` is all a fresh clone requires.
+
+**Verified environments** (offline suite + both live pipelines):
+
+| Python | torch | Notes |
+|---|---|---|
+| 3.12.13 | 2.x | the interpreter the paper results were produced on |
+| 3.14.5 | 2.13.0 | also verified end to end; Apple-Silicon MPS detected and used |
+
+`uv` picks the newest interpreter satisfying `requires-python = ">=3.12"`. Pin one
+explicitly with `uv venv --python 3.12` if you want to match the paper runs.
 
 ## 5. Run the sanity check or pytest
 
